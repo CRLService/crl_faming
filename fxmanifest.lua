@@ -12,7 +12,8 @@ dependency 'es_extended'
 
 client_scripts {
     'config.lua',
-    'client/client.lua'
+    'client/marker.lua',
+    'client/blip.lua'
 }
 
 server_scripts {
