@@ -6,3 +6,8 @@ if Config.GetSharedObjectfunction == true then
 else
     TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 end
+
+
+
+
+
