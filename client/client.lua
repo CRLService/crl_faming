@@ -3,7 +3,7 @@ ESX = exports["es_extended"]:getSharedObject()
 
 
 
-local sleep = 0
+
 Citizen.CreateThread(function()
 
     for k,v in pairs(Config.Farming) do
@@ -27,7 +27,11 @@ Citizen.CreateThread(function()
 
 end)
 
+local sleep = 0
+
 Citizen.CreateThread(function()
+
+    local nearmarker = false
 
     for k,v in pairs(Config.Farming) do 
         while true do 
@@ -36,27 +40,19 @@ Citizen.CreateThread(function()
             local pedCoords = GetEntityCoords(PlayerPedId())
             local distance = GetDistanceBetweenCoords(pedCoords.x, pedCoords.y, pedCoords.z, v.MarkerCoordination.x,v.MarkerCoordination.y,v.MarkerCoordination.z)
         
-            if distance >= 250 then
+            if distance >= 500 then 
                 sleep = 5000
-            end
-
-            if distance <= 250 then
+            elseif distance <= 500 then
                 sleep = 1000
-            end
-
-            if distance <= 100 then
-                sleep = 50
-            end
-
-            if distance <= 50 then 
-                sleep = 250
-            end
-
-            if distance <= 10 then
+            elseif distance <= 75 then
+                sleep = 500
+            elseif distance <= 10 then 
                 sleep = 0 
+                nearmarker = true
             end
 
-                if distance <= 10 then 
+                if nearmarker == true then 
+                    Citizen.Wait(0)
                     DrawMarker(v.markertyp, v.MarkerCoordination.x,v.MarkerCoordination.y,v.MarkerCoordination.z, 0.0, 0.0, 0.0, 0.0, v.updown, 0.0, 2.0, 2.0, 2.0, v.red, v.green, v.blue, v.alpha, v.bobUpAndDown, v.faceCamera, 2, nil, nil, false)
                 end
         end
